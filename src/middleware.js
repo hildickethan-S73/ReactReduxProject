@@ -12,7 +12,9 @@ const middleware = store => next => action => {
     next(action);
 
     // set localstorage after any action
-    localStorage.setItem('products',JSON.stringify(store.getState().products.list));
+    if (store.getState().products.list) {
+        localStorage.setItem('products',JSON.stringify(store.getState().products.list));
+    }
 }
 
 export default middleware;

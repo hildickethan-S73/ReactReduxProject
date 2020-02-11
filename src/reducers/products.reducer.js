@@ -78,6 +78,8 @@ export default (state = {}, action) => {
       };
 
     case PRODUCT_CHANGED: // change active product values //// {products: {activeProduct:{}}}
+      // console.log(action.payload);
+      
       return {
         ...state,
         activeProduct: {
@@ -99,12 +101,14 @@ export default (state = {}, action) => {
       };
       
     case PRODUCT_CREATE:
-      list = state.list;
+      let local = localStorage.getItem('products');
+      (local !== null) ? list = JSON.parse(local) : list = [];
       list.push(action.payload);
+      localStorage.setItem('products',JSON.stringify(list));
       return {
-        ...state,
-        list: list
-      }
+        state
+      };
+
     case PRODUCT_DELETE:
       list = state.list;
       list.splice(list.indexOf(action.payload),1);

@@ -27,3 +27,7 @@ body {
 .active:hover {
   background-color: #007bff;
 }
+
+.btn {
+  margin: 10px;
+}

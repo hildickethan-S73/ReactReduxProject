@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { PRODUCTS_LOAD, PRODUCTS_UNLOAD, PRODUCT_SELECTED, PRODUCTS_RESET } from '../../constants/actionTypes';
+import { PRODUCTS_LOAD, PRODUCTS_UNLOAD, PRODUCT_SELECTED } from '../../constants/actionTypes';
 import Product from './Product';
 
 const mapStateToProps = (state) => ({
@@ -18,9 +18,6 @@ const mapDispatchToProps = (dispatch) => ({
   selectProduct: (product) => dispatch({
     type: PRODUCT_SELECTED,
     payload: product
-  }),
-  resetProducts: () => dispatch({
-    type: PRODUCTS_RESET
   })
 })
 
@@ -28,15 +25,10 @@ class ProductList extends Component {
   UNSAFE_componentWillMount() {
     this.props.onLoad()
   }
-
-  reset = () => {
-    this.props.resetProducts();
-  }
-
   render() {
     return (
       <div className='col-4 text-dark'>
-        <input type="button" className='btn btn-warning text-dark' value="Reset" onClick={this.reset} />
+        <h3 className='text-light text-center'>List</h3>
         <Product products={this.props.products} selectProduct={this.props.selectProduct} />
       </div>
     );

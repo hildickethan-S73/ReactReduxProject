@@ -46,6 +46,7 @@ class ProductDetail extends Component {
     if (!this.props.activeProduct) {
       return (
         <div className="col-8 product-detail">
+          <h3 className='text-light text-center'>Details</h3>
           <h3 className="product-detail__header">Select a product to get started!</h3>
         </div>
       );
@@ -53,7 +54,9 @@ class ProductDetail extends Component {
 
     return (
       <div className="col-8 product-detail">
-        <h3 className="product-detail__header">Details for: {this.props.activeProduct.name}</h3>
+        <h3 className='text-light text-center'>Details</h3>
+        <h3 className="product-detail__header">{this.props.activeProduct.name}</h3>
+        <div>ID: <input type="text" name="id"  value={this.props.activeProduct.id} readOnly></input></div>
         <div>Name: <input type="text" name="name"  value={this.props.activeProduct.name} onChange={this.change}></input></div>
         <div>Description: <input type="text" name="description" value={this.props.activeProduct.description} onChange={this.change}></input></div>
         <div className="row">
