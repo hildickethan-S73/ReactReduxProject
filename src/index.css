@@ -1,0 +1,29 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+
+.main__header {
+  margin-bottom: 20px;
+}
+
+.product-detail__header {
+  margin-top: 0;
+}
+
+.product-detail div {
+  margin-bottom: 5px;
+}
+
+.list-group-item {
+  cursor: pointer;
+  transition: 120ms ease-in-out;
+}
+
+.list-group-item-action:hover {
+  background-color: #c8cccf;
+}
+.active:hover {
+  background-color: #007bff;
+}
