@@ -1,6 +1,6 @@
+// constants
 import {
   PRODUCTS_LOAD,
-  PRODUCTS_UNLOAD,
   PRODUCT_SELECTED,
   PRODUCT_CHANGED,
   PRODUCT_UPDATE,
@@ -13,7 +13,73 @@ import {
 export default (state = {}, action) => {
   let list;
   switch(action.type) {
-    case PRODUCTS_RESET: // load product list //// {products: {list:[]}}
+    // return the selected product
+    case PRODUCT_SELECTED:
+      return {
+        ...state,
+        activeProduct: action.payload
+      };
+
+    // return the changed text box in Details or Create
+    case PRODUCT_CHANGED:
+      return {
+        ...state,
+        activeProduct: {
+          ...action.payload.activeProduct,
+          [action.payload.target.name]: action.payload.target.value
+        }
+      };
+    
+    // return an updated products list with the updated product
+    case PRODUCT_UPDATE:
+      list = state.list;
+      let filtered = list.filter((element) => element.id === action.payload.id);
+      let index = list.indexOf(filtered[0]);
+      list[index] = action.payload;
+      
+      return {
+        ...state,
+        list: list,
+        activeProduct: action.payload
+      };
+
+    // set localstorage with the new product, since this will return to products_load after
+    case PRODUCT_CREATE:
+      let local = localStorage.getItem('products');
+      (local !== null) ? list = JSON.parse(local) : list = [];
+      list.push(action.payload);
+      localStorage.setItem('products',JSON.stringify(list));
+      return {
+        state
+      };
+
+    // return an updated products list without the deleted product and nothing in Details
+    case PRODUCT_DELETE:
+      list = state.list;
+      list.splice(list.indexOf(action.payload),1);
+      return {
+        ...state,
+        list: list,
+        activeProduct: null
+      }
+
+    // return the products in localStorage
+    case PRODUCTS_LOAD:
+      list = JSON.parse(localStorage.getItem('products'));
+      return {
+        ...state,
+        list: list
+      }
+
+    // update the disabled property for the create button
+    case PRODUCT_CREATE_DISABLE:
+      return {
+        ...state,
+        disabled: action.payload
+      }
+
+    // return the JSON we Reset to when you click reset or load for the first time
+    case PRODUCTS_RESET: 
       return {
         list: [
           {
@@ -67,69 +133,6 @@ export default (state = {}, action) => {
             "description": "description10"
           }
         ]
-      }
-
-    case PRODUCTS_UNLOAD: // delete product state
-      return {};
-    
-    case PRODUCT_SELECTED: // select product //// {products: {activeProduct:{}}}
-      return {
-        ...state,
-        activeProduct: action.payload
-      };
-
-    case PRODUCT_CHANGED: // change active product values //// {products: {activeProduct:{}}}
-      // console.log(action.payload);
-      
-      return {
-        ...state,
-        activeProduct: {
-          ...action.payload.activeProduct,
-          [action.payload.target.name]: action.payload.target.value
-        }
-      };
-    
-    case PRODUCT_UPDATE:
-      list = state.list;
-      let filtered = list.filter((element) => element.id === action.payload.id);
-      let index = list.indexOf(filtered[0]);
-      list[index] = action.payload;
-      
-      return {
-        ...state,
-        list: list,
-        activeProduct: action.payload
-      };
-      
-    case PRODUCT_CREATE:
-      let local = localStorage.getItem('products');
-      (local !== null) ? list = JSON.parse(local) : list = [];
-      list.push(action.payload);
-      localStorage.setItem('products',JSON.stringify(list));
-      return {
-        state
-      };
-
-    case PRODUCT_DELETE:
-      list = state.list;
-      list.splice(list.indexOf(action.payload),1);
-      return {
-        ...state,
-        list: list,
-        activeProduct: null
-      }
-
-    case PRODUCTS_LOAD:
-      list = JSON.parse(localStorage.getItem('products'));
-      return {
-        ...state,
-        list: list
-      }
-
-    case PRODUCT_CREATE_DISABLE:
-      return {
-        ...state,
-        disabled: action.payload
       }
 
       default:

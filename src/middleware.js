@@ -1,5 +1,6 @@
 import { PRODUCTS_RESET } from "./constants/actionTypes";
 
+// our localstorage middleware
 const middleware = store => next => action => {
     // if no localstorage (first visit)
     // create localstorage and then RESET the data to fill it

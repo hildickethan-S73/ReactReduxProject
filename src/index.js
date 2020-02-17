@@ -8,6 +8,7 @@ import './index.css';
 
 import store from './store';
 
+// we wrap entire App with Redux Provider and Router
 ReactDOM.render(
   <Provider store={store}>
     <Router>
