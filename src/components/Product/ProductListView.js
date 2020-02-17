@@ -4,11 +4,15 @@ import ProductDetail from './ProductDetail';
 
 const ProductListView = () => {
   return (
-    <div className='row'>
-        <ProductList />
-        <ProductDetail />
-    </div>
+    <DeleteButton.Provider value="btn btn-danger text-dark">
+      <div className='row'>
+          <ProductList />
+          <ProductDetail />
+      </div>
+    </DeleteButton.Provider>
   );
 };
 
 export default ProductListView;
+
+export const DeleteButton = React.createContext();

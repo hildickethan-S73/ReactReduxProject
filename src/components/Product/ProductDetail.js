@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { PRODUCT_CHANGED, PRODUCT_UPDATE, PRODUCT_DELETE } from "../../constants/actionTypes";
+import { DeleteButton } from "./ProductListView";
 
 const mapStateToProps = (state) => ({
   ...state,
@@ -61,7 +62,9 @@ class ProductDetail extends Component {
         <div>Description: <input type="text" name="description" value={this.props.activeProduct.description} onChange={this.change}></input></div>
         <div className="row">
           <input type="button" value="Update" className='btn btn-primary text-dark' onClick={this.update} />
-          <input type="button" value="Delete" className='btn btn-danger text-dark' onClick={this.delete} /> 
+          <DeleteButton.Consumer>
+            { (value) => ( <input type="button" value="Delete" className={value} onClick={this.delete} /> )}
+          </DeleteButton.Consumer>
         </div>
       </div>
     );

@@ -1,9 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const Product = props => {
   let productList = props.products.list;
   let active = props.products.activeProduct;
-  // console.log(productList);
   
   if (!productList || productList === {}) {
     return (
@@ -33,5 +33,14 @@ const Product = props => {
     </ul>
   );
 };
+
+// https://redux.js.org/basics/usage-with-react/
+Product.propTypes = {
+  products: PropTypes.shape({
+    id: PropTypes.number,
+    name: PropTypes.string,
+    description: PropTypes.string
+  }).isRequired
+}
 
 export default Product;

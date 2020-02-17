@@ -6,7 +6,8 @@ import {
   PRODUCT_UPDATE,
   PRODUCT_CREATE,
   PRODUCT_DELETE,
-  PRODUCTS_RESET
+  PRODUCTS_RESET,
+  PRODUCT_CREATE_DISABLE
 } from '../constants/actionTypes';
 
 export default (state = {}, action) => {
@@ -118,16 +119,24 @@ export default (state = {}, action) => {
         activeProduct: null
       }
 
-      case PRODUCTS_LOAD:
-        list = JSON.parse(localStorage.getItem('products'));
-        return {
-          ...state,
-          list: list
-        }
+    case PRODUCTS_LOAD:
+      list = JSON.parse(localStorage.getItem('products'));
+      return {
+        ...state,
+        list: list
+      }
+
+    case PRODUCT_CREATE_DISABLE:
+      return {
+        ...state,
+        disabled: action.payload
+      }
 
       default:
         return state;
     }
+
+
 
   
 }
